@@ -1,0 +1,358 @@
+[
+    {
+        "model": "products.category",
+        "pk": 1,
+        "fields": {
+            "name": "Мясо",
+            "slug": "meat",
+            "image": "categories/category_default.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 2,
+        "fields": {
+            "name": "Молочные продукты",
+            "slug": "dairy",
+            "image": "categories/category_default.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 3,
+        "fields": {
+            "name": "Фрукты",
+            "slug": "fruits",
+            "image": "categories/category_default.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 4,
+        "fields": {
+            "name": "Овощи",
+            "slug": "vegetables",
+            "image": "categories/category_default.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 5,
+        "fields": {
+            "name": "Напитки",
+            "slug": "drinks",
+            "image": "categories/category_default.jpg"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 6,
+        "fields": {
+            "name": "Сладости",
+            "slug": "sweets",
+            "image": "categories/category_default.jpg"
+        }
+    },
+
+    {
+        "model": "products.subcategory",
+        "pk": 1,
+        "fields": {
+            "name": "Говядина",
+            "slug": "beef",
+            "category": 1,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 2,
+        "fields": {
+            "name": "Свинина",
+            "slug": "pork",
+            "category": 1,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 3,
+        "fields": {
+            "name": "Молоко",
+            "slug": "milk",
+            "category": 2,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 4,
+        "fields": {
+            "name": "Сыр",
+            "slug": "cheese",
+            "category": 2,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 5,
+        "fields": {
+            "name": "Яблоки",
+            "slug": "apples",
+            "category": 3,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 6,
+        "fields": {
+            "name": "Бананы",
+            "slug": "bananas",
+            "category": 3,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 7,
+        "fields": {
+            "name": "Картофель",
+            "slug": "potatoes",
+            "category": 4,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 8,
+        "fields": {
+            "name": "Морковь",
+            "slug": "carrots",
+            "category": 4,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 9,
+        "fields": {
+            "name": "Соки",
+            "slug": "juices",
+            "category": 5,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 10,
+        "fields": {
+            "name": "Вода",
+            "slug": "water",
+            "category": 5,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 11,
+        "fields": {
+            "name": "Шоколад",
+            "slug": "chocolate",
+            "category": 6,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+    {
+        "model": "products.subcategory",
+        "pk": 12,
+        "fields": {
+            "name": "Конфеты",
+            "slug": "candies",
+            "category": 6,
+            "image": "subcategories/subcategory_default.jpg"
+        }
+    },
+
+    {
+        "model": "products.product",
+        "pk": 1,
+        "fields": {
+            "name": "Говядина 1",
+            "slug": "beef-1",
+            "category": 1,
+            "subcategory": 1,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 500.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 2,
+        "fields": {
+            "name": "Говядина 2",
+            "slug": "beef-2",
+            "category": 1,
+            "subcategory": 1,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 600.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 3,
+        "fields": {
+            "name": "Свинина 1",
+            "slug": "pork-1",
+            "category": 1,
+            "subcategory": 2,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 450.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 4,
+        "fields": {
+            "name": "Свинина 2",
+            "slug": "pork-2",
+            "category": 1,
+            "subcategory": 2,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 550.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 5,
+        "fields": {
+            "name": "Молоко 1",
+            "slug": "milk-1",
+            "category": 2,
+            "subcategory": 3,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 60.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 6,
+        "fields": {
+            "name": "Молоко 2",
+            "slug": "milk-2",
+            "category": 2,
+            "subcategory": 3,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 65.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 7,
+        "fields": {
+            "name": "Сыр 1",
+            "slug": "cheese-1",
+            "category": 2,
+            "subcategory": 4,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 200.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 8,
+        "fields": {
+            "name": "Сыр 2",
+            "slug": "cheese-2",
+            "category": 2,
+            "subcategory": 4,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 220.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 9,
+        "fields": {
+            "name": "Яблоки 1",
+            "slug": "apples-1",
+            "category": 3,
+            "subcategory": 5,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 100.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 10,
+        "fields": {
+            "name": "Яблоки 2",
+            "slug": "apples-2",
+            "category": 3,
+            "subcategory": 5,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 120.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 11,
+        "fields": {
+            "name": "Бананы 1",
+            "slug": "bananas-1",
+            "category": 3,
+            "subcategory": 6,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 80.00
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 12,
+        "fields": {
+            "name": "Бананы 2",
+            "slug": "bananas-2",
+            "category": 3,
+            "subcategory": 6,
+            "image": "products/default.jpg",
+            "image_small": "products/small/default_small.jpg",
+            "image_medium": "products/medium/default_medium.jpg",
+            "image_large": "products/large/default_large.jpg",
+            "price": 85.00
+        }
+    }
+]
