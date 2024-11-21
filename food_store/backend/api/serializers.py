@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
 from django.core.validators import MaxValueValidator, MinValueValidator
-# from django.core.exceptions import ValidationError
+from rest_framework import serializers
 
 from backend.constants import MIN_QUANTITY
 from products.models import Cart, CartItem, Category, Product, Subcategory
+
 
 User = get_user_model()
 
