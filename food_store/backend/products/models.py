@@ -196,7 +196,8 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items',
                              on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,
+                                default=MIN_QUANTITY,)
     quantity = models.PositiveIntegerField(default=MIN_QUANTITY,
                                            verbose_name='Количество')
 

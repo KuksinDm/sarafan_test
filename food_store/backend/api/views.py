@@ -5,9 +5,11 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet, ViewSet
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 from .serializers import (
-    CartItemSerializer,
+    CartItemAddSerializer,
     CartSerializer,
     CategorySerializer,
     ProductSerializer,
@@ -29,6 +31,14 @@ class CategoryViewSet(ReadOnlyModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(security=[])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(security=[])
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
 
 class ProductViewSet(ReadOnlyModelViewSet):
     """
@@ -41,6 +51,14 @@ class ProductViewSet(ReadOnlyModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
+
+    @swagger_auto_schema(security=[])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(security=[])
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
 
 
 class CartViewSet(ViewSet):
@@ -61,9 +79,23 @@ class CartViewSet(ViewSet):
         serializer = CartSerializer(cart)
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        responses={201: openapi.Response('Product added to cart')},
+        operation_description="Добавить товар в корзину",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'product_id': openapi.Schema(type=openapi.TYPE_INTEGER,
+                                             minimum=1),
+                'quantity': openapi.Schema(type=openapi.TYPE_INTEGER,
+                                           minimum=1, maximum=10000000)
+            },
+            required=['product_id', 'quantity']
+        )
+    )
     @action(detail=False, methods=['post'])
     def add(self, request):
-        serializer = CartItemSerializer(data=request.data)
+        serializer = CartItemAddSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         product = serializer.validated_data['product_id']
@@ -85,10 +117,24 @@ class CartViewSet(ViewSet):
             status=status.HTTP_201_CREATED
         )
 
+    @swagger_auto_schema(
+        responses={200: openapi.Response('Product quantity updated')},
+        operation_description="Количество товара обновлено",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'product_id': openapi.Schema(type=openapi.TYPE_INTEGER,
+                                             minimum=1),
+                'quantity': openapi.Schema(type=openapi.TYPE_INTEGER,
+                                           minimum=1, maximum=10000000)
+            },
+            required=['product_id', 'quantity']
+        )
+    )
     @action(detail=False, methods=['put'])
     def update_quantity(self, request):
         """Обновить количество продукта в корзине."""
-        serializer = CartItemSerializer(data=request.data)
+        serializer = CartItemAddSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         product = serializer.validated_data['product_id']
@@ -105,6 +151,18 @@ class CartViewSet(ViewSet):
             status=status.HTTP_200_OK
         )
 
+    @swagger_auto_schema(
+        responses={204: openapi.Response('Product removed from cart')},
+        operation_description="Продукт удален из корзины",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'product_id': openapi.Schema(type=openapi.TYPE_INTEGER,
+                                             minimum=1)
+            },
+            required=['product_id', 'quantity']
+        )
+    )
     @action(detail=False, methods=['delete'])
     def remove(self, request):
         product_id = request.data.get('product_id')

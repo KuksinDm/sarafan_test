@@ -119,7 +119,7 @@ SWAGGER_SETTINGS = {
             'type': 'apiKey',
             'in': 'header',
             'name': 'Authorization',
-            'description': 'Enter Token as `Token`'
+            'description': 'Enter Token as `Token <your_token>`'
         }
     },
     'USE_SESSION_AUTH': False,

@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from django.core.validators import MaxValueValidator, MinValueValidator
+# from django.core.exceptions import ValidationError
 
 from backend.constants import MIN_QUANTITY
 from products.models import Cart, CartItem, Category, Product, Subcategory
@@ -43,7 +45,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'slug', 'image', 'subcategories')
 
 
-class ProductCategorySerializer(serializers.ModelSerializer):
+class CategoryProductSerializer(serializers.ModelSerializer):
     """
     Сериализатор для отображения категории продукта без входящих в нее
     подкатегорий.
@@ -79,7 +81,7 @@ class ProductSerializer(serializers.ModelSerializer):
     image_small = serializers.ImageField(read_only=True)
     image_medium = serializers.ImageField(read_only=True)
     image_large = serializers.ImageField(read_only=True)
-    category = ProductCategorySerializer(read_only=True)
+    category = CategoryProductSerializer(read_only=True)
     subcategory = SubcategorySerializer(read_only=True)
 
     class Meta:
@@ -88,39 +90,48 @@ class ProductSerializer(serializers.ModelSerializer):
                   'image_large', 'category', 'subcategory', 'price')
 
 
-class CartItemSerializer(serializers.ModelSerializer):
+class CartItemWithDetailsSerializer(serializers.ModelSerializer):
     """
-    Сериализатор для работы с товарами в корзине.
-
-    Поля:
-        - id: Идентификатор элемента корзины.
-        - product: Информация о продукте в корзине.
-        - product_id: Идентификатор продукта (для записи).
-        - quantity: Количество товара в корзине.
+    Сериализатор для отображения продуктов в корзине с полной информацией
+    о продукте (включая вложенные данные).
     """
     product = ProductSerializer(read_only=True)
     product_id = serializers.PrimaryKeyRelatedField(
-        queryset=Product.objects.all(), write_only=True
+        queryset=Product.objects.all(),
+        write_only=True,
+        required=True
     )
 
     class Meta:
         model = CartItem
         fields = ['id', 'product', 'product_id', 'quantity']
 
+
+class CartItemAddSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для добавления или обновления товара в корзине без вложенной
+    информации о продукте.
+    """
+    product_id = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(),
+        write_only=True,
+        required=True
+    )
+    quantity = serializers.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(10_000_000)],
+        required=True
+    )
+
+    class Meta:
+        model = CartItem
+        fields = ['product_id', 'quantity']
+
     def validate(self, data):
-        product = data.get('product_id')
-        quantity = data.get('quantity')
-
-        if not product:
-            raise serializers.ValidationError(
-                {'product_id': 'Product ID is required.'}
-            )
-
-        if quantity < MIN_QUANTITY:
+        # Пример дополнительной валидации, если нужно
+        if data['quantity'] < MIN_QUANTITY:
             raise serializers.ValidationError(
                 {'quantity': f'Quantity must be at least {MIN_QUANTITY}.'}
             )
-
         return data
 
 
@@ -135,7 +146,7 @@ class CartSerializer(serializers.ModelSerializer):
         - total_quantity: Общее количество товаров в корзине.
         - total_price: Общая стоимость товаров в корзине.
     """
-    items = CartItemSerializer(many=True, read_only=True)
+    items = CartItemWithDetailsSerializer(many=True, read_only=True)
     total_quantity = serializers.SerializerMethodField()
     total_price = serializers.SerializerMethodField()
 
